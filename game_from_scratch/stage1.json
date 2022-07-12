@@ -1,0 +1,39 @@
+{
+    "enemy":[
+        {
+            "time":1, "x":50, "y":50, "health":5, "cooldown":50, "worth":25, "items":5, "bullets":21, "angle_offset":0.31415, "angle_spread":0.31415, "path":"path1" 
+        },
+        {
+            "time":2, "x":150, "y":50, "health":5, "cooldown":30, "worth":25, "items":5, "bullets":3, "angle_offset":-0.4, "angle_spread":0.2, "goal_x":150, "goal_y":300, "path":"path0"
+        },
+        {
+            "time":3, "x":250, "y":50, "health":5, "cooldown":30, "worth":25, "items":5, "bullets":1, "angle_offset":0, "angle_spread":0, "goal_x":250, "goal_y":300, "path":"path0"
+        }
+    ],
+    "paths":[
+        {
+            "path0":[
+                {
+                    "x":150, "y":300
+                },
+                {
+                    "x":150, "y":200
+                },
+                {
+                    "x":300, "y":-50
+                },
+                {
+                    "die":true
+                }
+            ],
+            "path1":[
+                {
+                    "x":400, "y":300
+                },
+                {
+                    "die":true
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,2 @@
+player death
+start making stage 1

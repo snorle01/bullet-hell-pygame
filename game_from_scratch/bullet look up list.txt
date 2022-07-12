@@ -1,0 +1,7 @@
+Radians in 360deg (approx) = 6.283
+to make the bullet aimed at the player angle_offset must be 0
+
+cirkle = "bullets":31, "angle_offset":0.31415, "angle_spread":0.31415
+
+#to make this work the bullet in the middle will always have angle_offset = 0
+trident = "bullets":3, "angle_offset":-0.4, "angle_spread":0.2 
