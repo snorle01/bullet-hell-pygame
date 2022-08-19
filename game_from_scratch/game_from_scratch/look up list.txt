@@ -1,0 +1,21 @@
+/
+/Bullet pattern
+/
+Radians in 360deg (approx) = 6.283
+to make the bullet aimed at the player angle_offset must be 0
+
+circle = "bullets":20, "angle_offset":0.31415, "angle_spread":0.31415
+to make circle divide the radians with the number of bullets and put that number on angle offset and angle spread
+
+trident = "bullets":3, "angle_offset":-0.4, "angle_spread":0.2
+
+/
+/path
+/
+write any number inn either x or y to make the enemy go to that point
+write relative to use the current x or y of the enemy
+write "die":true to make the enemy despawn
+write "wait":wait time to make the enemy wait (60 = 1sec)
+write "respawn":true to make enemys respawn after death
+write "respawn_turn_off":false to make respawning enemys stop respawning
+write "clear":true to remove all enemys on the screen and bullets

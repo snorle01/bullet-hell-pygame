@@ -1,0 +1,13 @@
+# do this
+take stuff from main_file.py and make it class functions
+begin making stage 2
+make animation for when player bullets hit enemy and for player when he dies and for bosses
+improve normal enemy death animation
+add fade effect to background after completing a stage
+
+# do this when your mostly done
+make it so when there is no enemys on the screen the game releses enemys erlier
+make full power text
+add gracing
+make it so players special bullets get focused when pressing shift
+add dialog
