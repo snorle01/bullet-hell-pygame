@@ -1,0 +1,36 @@
+{
+    "slow_shoot_at_player":[{
+        "health":1, "image":"blue_spaceship", "speed":2, "cooldown":90, "worth":5, "items":1, "bullets":1, "ammo":false, "ammo_cooldown":0, "angle_offset":0, "angle_spread":0
+    }],
+
+    "shoot_ring":[{
+        "health":20, "image":"red_spaceship", "speed":3, "cooldown":50, "worth":25, "items":5, "bullets":20, "ammo":false, "ammo_cooldown":0, "angle_offset":0.31415, "angle_spread":0.31415
+    }],
+
+    "shoot_ring_easy":[{
+        "health":50, "image":"red_spaceship", "speed":3, "cooldown":50, "worth":25, "items":5, "bullets":10, "ammo":false, "ammo_cooldown":0, "angle_offset":0.6283, "angle_spread":0.6283
+    }],
+
+    "slow_shoot_at_player_strong":[{
+        "health":3, "image":"blue_spaceship", "speed":2, "cooldown":90, "worth":5, "items":1, "bullets":1, "ammo":false, "ammo_cooldown":0, "angle_offset":0, "angle_spread":0
+    }],
+
+    "shoot_trident":[{
+        "health":3, "image":"green_spaceship", "speed":2, "cooldown":90, "worth":5, "items":2, "bullets":3, "ammo":false, "ammo_cooldown":0, "angle_offset":-0.4, "angle_spread":0.2
+    }],
+
+    "shoot_trident_faster":[{
+        "health":3, "image":"green_spaceship", "speed":2, "cooldown":50, "worth":5, "items":1, "bullets":3, "ammo":false, "ammo_cooldown":0, "angle_offset":-0.4, "angle_spread":0.2
+    }],
+
+    "shoot_3row":[{
+        "health":10, "image":"blue_spaceship", "speed":1, "cooldown":10, "worth":5, "items":1, "bullets":1, "ammo":3, "ammo_cooldown":50, "angle_offset":0, "angle_spread":0
+    }],
+
+    "shoot_ring_strong":[{
+        "health":50, "image":"red_spaceship", "speed":4, "cooldown":30, "worth":50, "items":5, "bullets":20, "ammo":false, "ammo_cooldown":0, "angle_offset":0.31415, "angle_spread":0.31415
+    }],
+    "shoot_at_player":[{
+        "health":5, "image":"blue_spaceship", "speed":2, "cooldown":30, "worth":5, "items":1, "bullets":1, "ammo":false, "ammo_cooldown":0, "angle_offset":0, "angle_spread":0
+    }]
+}

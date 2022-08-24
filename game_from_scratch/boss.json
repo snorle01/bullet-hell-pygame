@@ -1,0 +1,25 @@
+{
+    "boss00":[
+        {
+            "midstage":[
+                {
+                    "health":200, "bulletvelocity":3, "special":false
+                }
+            ],
+            "boss":[
+                {
+                    "health":180, "bulletvelocity":3, "special":false
+                },
+                {
+                    "health":200, "bulletvelocity":3, "special":true
+                },
+                {
+                    "health":200, "bulletvelocity":3, "special":false
+                },
+                {
+                    "health":300, "bulletvelocity":3, "special":true
+                }
+            ]
+        }
+    ]
+}

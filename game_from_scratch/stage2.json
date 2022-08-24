@@ -1,0 +1,220 @@
+{
+    "enemy":[
+        {
+            "time":3, "x":50, "y":-50, "path":"path0", "enemy":"shoot_3row"
+        },
+        {
+            "time":3, "x":150, "y":-50, "path":"path0", "enemy":"shoot_3row"
+        },
+        {
+            "time":3, "x":250, "y":-50, "path":"path0", "enemy":"shoot_3row"
+        },
+        {
+            "time":3, "x":350, "y":-50, "path":"path0", "enemy":"shoot_3row"
+        },
+
+        {
+            "time":15, "x":450, "y":100, "path":"right_to_left", "enemy":"shoot_at_player"
+        },
+        {
+            "time":17, "x":-50, "y":200, "path":"left_to_right", "enemy":"shoot_at_player"
+        },
+        {
+            "time":19, "x":450, "y":100, "path":"right_to_left", "enemy":"shoot_at_player"
+        },
+        {
+            "time":21, "x":-50, "y":200, "path":"left_to_right", "enemy":"shoot_at_player"
+        },
+        {
+            "time":23, "x":450, "y":100, "path":"right_to_left", "enemy":"shoot_at_player"
+        },
+        {
+            "time":25, "x":-50, "y":200, "path":"left_to_right", "enemy":"shoot_at_player"
+        },
+        {
+            "time":27, "x":450, "y":100, "path":"right_to_left", "enemy":"shoot_at_player"
+        },
+        {
+            "time":29, "x":-50, "y":200, "path":"left_to_right", "enemy":"shoot_at_player"
+        },
+        {
+            "time":31, "x":450, "y":100, "path":"right_to_left", "enemy":"shoot_at_player"
+        },
+        {
+            "time":33, "x":-50, "y":200, "path":"left_to_right", "enemy":"shoot_at_player"
+        },
+        {
+            "time":35, "x":450, "y":100, "path":"right_to_left", "enemy":"shoot_at_player"
+        },
+
+        {
+            "time":40, "x":200, "y":-100, "path":"down_middle", "enemy":"shoot_ring_strong"
+        },
+
+        {
+            "time":50, "x":50, "y":-100, "path":"straight_down", "enemy":"slow_shoot_at_player_strong"
+        },
+        {
+            "time":50, "x":400, "y":-100, "path":"straight_down", "enemy":"slow_shoot_at_player_strong"
+        },
+        {
+            "time":51, "x":50, "y":-100, "path":"straight_down", "enemy":"slow_shoot_at_player_strong"
+        },
+        {
+            "time":51, "x":400, "y":-100, "path":"straight_down", "enemy":"slow_shoot_at_player_strong"
+        },
+        {
+            "time":52, "x":50, "y":-100, "path":"straight_down", "enemy":"slow_shoot_at_player_strong"
+        },
+        {
+            "time":52, "x":400, "y":-100, "path":"straight_down", "enemy":"slow_shoot_at_player_strong"
+        },
+        {
+            "time":53, "x":50, "y":-100, "path":"straight_down", "enemy":"slow_shoot_at_player_strong"
+        },
+        {
+            "time":53, "x":400, "y":-100, "path":"straight_down", "enemy":"slow_shoot_at_player_strong"
+        },
+        {
+            "time":54, "x":50, "y":-100, "path":"straight_down", "enemy":"slow_shoot_at_player_strong"
+        },
+        {
+            "time":54, "x":400, "y":-100, "path":"straight_down", "enemy":"slow_shoot_at_player_strong"
+        },
+        {
+            "time":55, "x":50, "y":-100, "path":"straight_down", "enemy":"slow_shoot_at_player_strong"
+        },
+        {
+            "time":55, "x":400, "y":-100, "path":"straight_down", "enemy":"slow_shoot_at_player_strong"
+        },
+        {
+            "time":56, "x":50, "y":-100, "path":"straight_down", "enemy":"slow_shoot_at_player_strong"
+        },
+        {
+            "time":56, "x":400, "y":-100, "path":"straight_down", "enemy":"slow_shoot_at_player_strong"
+        },
+        {
+            "time":57, "x":50, "y":-100, "path":"straight_down", "enemy":"slow_shoot_at_player_strong"
+        },
+        {
+            "time":57, "x":400, "y":-100, "path":"straight_down", "enemy":"slow_shoot_at_player_strong"
+        },
+        {
+            "time":58, "x":50, "y":-100, "path":"straight_down", "enemy":"slow_shoot_at_player_strong"
+        },
+        {
+            "time":58, "x":400, "y":-100, "path":"straight_down", "enemy":"slow_shoot_at_player_strong"
+        },
+        {
+            "time":59, "x":50, "y":-100, "path":"straight_down", "enemy":"slow_shoot_at_player_strong"
+        },
+        {
+            "time":59, "x":400, "y":-100, "path":"straight_down", "enemy":"slow_shoot_at_player_strong"
+        },
+        {
+            "time":60, "x":50, "y":-100, "path":"straight_down", "enemy":"slow_shoot_at_player_strong"
+        },
+        {
+            "time":60, "x":400, "y":-100, "path":"straight_down", "enemy":"slow_shoot_at_player_strong"
+        },
+
+        {
+            "time":70, "x":150, "y":-50, "path":"down_wait", "enemy":"shoot_3row"
+        },
+        {
+            "time":71, "x":50, "y":-50, "path":"down_wait", "enemy":"shoot_3row"
+        },
+        {
+            "time":72, "x":350, "y":-50, "path":"down_wait", "enemy":"shoot_3row"
+        },
+        {
+            "time":73, "x":250, "y":-50, "path":"down_wait", "enemy":"shoot_3row"
+        },
+        {
+            "time":74, "x":50, "y":-50, "path":"down_wait", "enemy":"shoot_3row"
+        },
+        {
+            "time":75, "x":350, "y":-50, "path":"down_wait", "enemy":"shoot_3row"
+        },
+        {
+            "time":76, "x":250, "y":-50, "path":"down_wait", "enemy":"shoot_3row"
+        },
+        {
+            "time":77, "x":150, "y":-50, "path":"down_wait", "enemy":"shoot_3row"
+        },
+        {
+            "time":78, "x":350, "y":-50, "path":"down_wait", "enemy":"shoot_3row"
+        },
+        {
+            "time":79, "x":250, "y":-50, "path":"down_wait", "enemy":"shoot_3row"
+        },
+        {
+            "time":80, "x":50, "y":-50, "path":"down_wait", "enemy":"shoot_3row"
+        },
+        {
+            "time":81, "x":350, "y":-50, "path":"down_wait", "enemy":"shoot_3row"
+        }
+    ],
+
+    "paths":[
+        {
+            "path0":[
+                {
+                    "x":"relative", "y":100
+                },
+                {
+                    "wait":360
+                },
+                {
+                    "x":500, "y":"relative"
+                },
+                {
+                    "die":true
+                }
+            ],
+            "right_to_left":[
+                {
+                    "x":-50, "y":"relative"
+                },
+                {
+                    "die":true
+                }
+            ],
+            "left_to_right":[
+                {
+                    "x":450, "y":"relative"
+                },
+                {
+                    "die":true
+                }
+            ],
+            "down_middle":[
+                {
+                    "x":"relative", "y":200
+                }
+            ],
+            "straight_down":[
+                {
+                    "x":"relative", "y":800
+                },
+                {
+                    "die":true
+                }
+            ],
+            "down_wait":[
+                {
+                    "x":"relative", "y":200
+                },
+                {
+                    "wait":180
+                },
+                {
+                    "x":"relative", "y":800
+                },
+                {
+                    "die":true
+                }
+            ]
+        }
+    ]
+}
