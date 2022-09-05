@@ -4,7 +4,7 @@ from boss_classes import *
 from functions import *
 import pygame
 import json
-pygame.font.init()
+pygame.init()
 
 #size of the entire window
 height_of_window, width_of_window = 700, 700
@@ -18,20 +18,53 @@ pygame.display.set_caption('game test')
 
 #Load images
 #background image
-backgroundimage = [pygame.image.load('assets/background0.png'), pygame.image.load('assets/background1.png')]
-
+backgroundimage = [pygame.image.load('assets/background0.png').convert(), pygame.image.load('assets/background1.png').convert(), pygame.image.load('assets/background2.png').convert()]
 #sidemenu
-heart_image = pygame.image.load('assets/heart.png')
-empty_heart_image = pygame.image.load('assets/empty_heart.png')
-heartpice1_image = pygame.image.load('assets/heartpice_1.png')
-heartpice2_image = pygame.image.load('assets/heartpice_2.png')
-bomb_image = pygame.image.load('assets/bomb.png')
-empty_bomb_image = pygame.image.load('assets/empty_bomb.png')
-bombpice1_image = pygame.image.load('assets/bombpice_1.png')
-bombpice2_image = pygame.image.load('assets/bombpice_2.png')
-
+heart_image = pygame.image.load('assets/heart.png').convert_alpha()
+empty_heart_image = pygame.image.load('assets/empty_heart.png').convert_alpha()
+heartpice1_image = pygame.image.load('assets/heartpice_1.png').convert_alpha()
+heartpice2_image = pygame.image.load('assets/heartpice_2.png').convert_alpha()
+bomb_image = pygame.image.load('assets/bomb.png').convert_alpha()
+empty_bomb_image = pygame.image.load('assets/empty_bomb.png').convert_alpha()
+bombpice1_image = pygame.image.load('assets/bombpice_1.png').convert_alpha()
+bombpice2_image = pygame.image.load('assets/bombpice_2.png').convert_alpha()
 #boss locator
-boss_locator = pygame.image.load('assets/boss_locator.png')
+boss_locator = pygame.image.load('assets/boss_locator.png').convert_alpha()
+
+#player images
+playerimage = pygame.image.load('assets/player_ship.png').convert_alpha()
+playerimage_glow = pygame.image.load('assets/player_ship_glow.png').convert_alpha()
+playerhitboximage = pygame.image.load('assets/player_hitbox.png').convert_alpha()
+player_images = [playerimage, playerimage_glow, playerhitboximage]
+#player bullets
+playerbullet = pygame.image.load('assets/player_bullet.png').convert_alpha()
+playerbullet_blur = pygame.image.load('assets/player_bullet_blur.png').convert_alpha()
+playerarrow = pygame.image.load('assets/player_arrow.png').convert_alpha()
+playerarrow_blur = pygame.image.load('assets/player_arrow_blur.png').convert_alpha()
+player_bullet_images = [(playerbullet, playerbullet_blur), (playerarrow, playerarrow_blur)]
+#enemy images
+enemyimage_red = pygame.image.load('assets/enemy_red.png').convert_alpha()
+enemyimage_blue = pygame.image.load('assets/enemy_blue.png').convert_alpha()
+enemyimage_green = pygame.image.load('assets/enemy_green.png').convert_alpha()
+enemyimages = {'red':enemyimage_red, 'blue':enemyimage_blue, 'green':enemyimage_green}
+#enemy bullets
+enemybullet_green = pygame.image.load('assets/enemy_bullet_green.png').convert_alpha()
+enemybullet_blue = pygame.image.load('assets/enemy_bullet_blue.png').convert_alpha()
+enemybullet_red = pygame.image.load('assets/enemy_bullet_red.png').convert_alpha()
+enemybullet_orange = pygame.image.load('assets/enemy_bullet_orange.png').convert_alpha()
+enemybullet_purple = pygame.image.load('assets/enemy_bullet_purple.png').convert_alpha()
+enemybullet_colors = {'red':(enemybullet_red, 8), 'blue':(enemybullet_blue, 8), 'green':(enemybullet_green, 8), 'orange':(enemybullet_orange, 15), 'purple':(enemybullet_purple, 8)}
+#item images
+pointitemimage = pygame.image.load('assets/pointitem.png').convert_alpha()
+poweritemimage = pygame.image.load('assets/poweritem.png').convert_alpha()
+big_poweritemimage = pygame.image.load('assets/big_poweritem.png').convert_alpha()
+heart_item_image = pygame.image.load('assets/heart_object.png').convert_alpha()
+bomb_item_image = pygame.image.load('assets/bomb_object.png').convert_alpha()
+ghost_point_image = pygame.image.load('assets/ghost_point.png').convert_alpha()
+
+#bossimages
+bossimage00 = pygame.image.load('assets/boss00.png').convert_alpha()
+bossimage01 = pygame.image.load('assets/boss01.png').convert_alpha()
 
 def main_game_loop():
     run = True
@@ -39,7 +72,7 @@ def main_game_loop():
     fps_counter = 0
 
     stage_time = 0
-    stage_level = 2
+    stage_level = 1
     done_spawning_enemys = False
     stage_cleared = False
     stage_cleared_timer = 0
@@ -49,7 +82,7 @@ def main_game_loop():
     start_to_fade_game_screen = False
     fade_inn_or_out = 'inn'
 
-    player_var = Playerclass()
+    player_var = Playerclass(player_images)
     player_var.spawn(game_screen_width,game_screen_height)
 
     boss_var = None
@@ -74,7 +107,7 @@ def main_game_loop():
 
     #json
     json_file_enemy = json.load(open('enemys.json'))
-    json_file_stage = json.load(open('stage2.json'))
+    json_file_stage = json.load(open('stage1.json'))
     json_file_boss = json.load(open('boss.json'))
 
     #non changing screen labels
@@ -89,7 +122,7 @@ def main_game_loop():
     clock = pygame.time.Clock()
     
     while run:
-        if backgroundscroll > backgroundimage[stage_level-1].get_height():
+        if backgroundscroll > backgroundimage[stage_level-1].get_height(): 
             backgroundscroll = 0
         backgroundscroll += 1
 
@@ -273,22 +306,29 @@ def main_game_loop():
             run = False
         #move player
         player_var.move(game_screen_width, game_screen_height)
+        #player shoot
+        if pygame.key.get_pressed()[pygame.K_z]:
+            player_var.shoot(player_bullet_images)
         #player bomb
-        player_var.move_bomb(boss_var, enemys_on_screen, [pointitems_on_screen, poweritems_on_screen, heartitems_on_screen, bombitems_on_screen], [enemybullets_on_screen])
+        player_var.move_bomb(boss_var, enemys_on_screen, all_items_list, [enemybullets_on_screen])
         #if player is in item collection zone
         if player_var.y < 250:
-            player_var.make_items_go_to_me([pointitems_on_screen, poweritems_on_screen, heartitems_on_screen, bombitems_on_screen])
+            player_var.make_items_go_to_me(all_items_list)
         #player collides with enemy bullet
         player_var.collide_with_bullet_and_enemy(enemybullets_on_screen, enemys_on_screen)
         #player update
-        player_var.update(game_screen_width, game_screen_height, poweritems_on_screen)
+        player_var.update(text_on_screen)
+        if player_var.death_bomb_counter > 0:
+            player_var.death_bomb_counter -= 1
+            if player_var.death_bomb_counter == 0:
+                player_var.die(game_screen_width, game_screen_height, poweritems_on_screen, (poweritemimage, big_poweritemimage))
 
         #//////////////
         #player bullets
         #//////////////
         #moves the player bullets
         for bullet in player_var.bullets_on_screen:
-            bullet.move(game_screen_height, player_var.bullets_on_screen)
+            bullet.move(player_var.bullets_on_screen)
             bullet.update(player_var.bullets_on_screen)
 
         #/////
@@ -300,11 +340,11 @@ def main_game_loop():
             #move the enemy
             enemy.move(enemys_on_screen, json_file_stage)
             #enemy shoot
-            enemy.shoot(player_var, enemybullets_on_screen)
+            enemy.shoot(player_var, enemybullets_on_screen, enemybullet_colors)
             #enemy collides with player bullets
             enemy.collide_with_player_bullet(player_var.bullets_on_screen)
             if enemy.health <= 0:
-                enemy.die(enemys_on_screen, particles_on_screen, pointitems_on_screen, poweritems_on_screen, heartitems_on_screen, bombitems_on_screen)
+                enemy.die(enemys_on_screen, particles_on_screen, pointitems_on_screen, pointitemimage, poweritems_on_screen, (poweritemimage, big_poweritemimage), heartitems_on_screen, heart_item_image, bombitems_on_screen, bomb_item_image)
 
         #/////////////
         #enemy bullets
@@ -320,13 +360,17 @@ def main_game_loop():
             #moves the boss
             boss_var.move()
             #boss shoot
-            boss_var.shoot(enemybullets_on_screen, player_var)
+            boss_var.shoot(enemybullet_colors, enemybullets_on_screen, player_var)
             #boss update
             boss_var.update()
+            #boss collide with player
+            if boss_var.collide(player_var):
+                if player_var.can_get_hurt and player_var.death_bomb_counter == 0 and player_var.god == False:
+                    player_var.death_bomb_counter = 30
             #boss collide with player bullets and dies when health reaches 0
             boss_var.collide_with_player_bullets(player_var.bullets_on_screen)
             if boss_var.health <= 0:
-                if boss_var.die(enemybullets_on_screen, pointitems_on_screen, poweritems_on_screen, ghostitems_on_screen, particles_on_screen):
+                if boss_var.die(enemybullets_on_screen, pointitems_on_screen, pointitemimage, poweritems_on_screen, (poweritemimage, big_poweritemimage), ghostitems_on_screen, ghost_point_image, particles_on_screen):
                     boss_var = None
 
         #/////
@@ -335,16 +379,13 @@ def main_game_loop():
         #moves the items
         for list in all_items_list:
             for item in list:
-                item.move(player_var, game_screen_height, list, text_on_screen)
+                item.move(player_var, game_screen_height, list)
         for item in ghostitems_on_screen:
             item.move(player_var, ghostitems_on_screen)
 
         #////
         #text
         #////
-        #move text
-        for text in text_on_screen:
-            text.move()
         #update text
         for text in text_on_screen:
             text.update(text_on_screen)
@@ -355,10 +396,6 @@ def main_game_loop():
         #update particle
         for particle in particles_on_screen:
             particle.update(particles_on_screen)
-
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                run = False
 
         #changes the fade alpha variable dependig if it fades out or inn (also stops fading)
         if start_to_fade_game_screen:
@@ -375,14 +412,19 @@ def main_game_loop():
         #reads json file
         if second_passed == True and boss_var == None:
             while json_file_stage['enemy'][enemy_list_turn]['time'] == stage_time and done_spawning_enemys == False:
+                
+                #all enemys will stop respawning if they could
                 if 'respawn_turn_off' in json_file_stage['enemy'][enemy_list_turn]:
                     for enemy in enemys_on_screen:
                         enemy.respawn = False
-                #spawns boss (need to make it compatibale with diffrent bosses)
+                
+                #spawns boss
                 elif 'spawnboss' in json_file_stage['enemy'][enemy_list_turn]:
                     json_boss = json_file_stage['enemy'][enemy_list_turn]
                     if json_boss['boss_id'] == 0:
-                        boss_var = Boss00(json_boss['midstage_boss'])
+                        boss_var = Boss00(bossimage00, json_boss['midstage_boss'])
+                    elif json_boss['boss_id'] == 1:
+                        boss_var = Boss01(bossimage01, json_boss['midstage_boss'])
                         if boss_var.midstage_boss:
                             type_of_boss = 'midstage'
                         else:
@@ -393,9 +435,12 @@ def main_game_loop():
                         boss_var.special_attack = json_file_boss['boss00'][0][type_of_boss][0]['special']
                     boss_var.spawn(game_screen_width)
 
+                #removes all enemys and enemy bullets
                 elif 'clear' in json_file_stage['enemy'][enemy_list_turn]:
                     enemys_on_screen.clear()
                     enemybullets_on_screen.clear()
+
+                #the player has completed the stage and is going to the next one
                 elif 'stage_clear' in json_file_stage['enemy'][enemy_list_turn]:
                     stage_cleared = True
                     done_spawning_enemys = True
@@ -403,7 +448,7 @@ def main_game_loop():
                     #spawns enemy
                     stage_json = json_file_stage['enemy'][enemy_list_turn]
                     enemy_json = json_file_enemy[stage_json['enemy']][0]
-                    new_enemy = Enemyclass(stage_json['x'],stage_json['y'],enemy_json['health'], stage_json['enemy'],enemy_json['image'],enemy_json['speed'],enemy_json['cooldown'],enemy_json['worth'],enemy_json['items'],enemy_json['bullets'],enemy_json['ammo'],enemy_json['ammo_cooldown'],enemy_json['angle_offset'],enemy_json['angle_spread'],stage_json['path'])
+                    new_enemy = Enemyclass(stage_json, enemy_json, enemyimages[enemy_json['image']])
 
                     #sets the goal x and goal y for enemy
                     if json_file_stage['paths'][0][stage_json['path']][0]['x'] == 'relative':
@@ -421,13 +466,16 @@ def main_game_loop():
                     new_enemy.direction_x = math.cos(angle_in_radians)*new_enemy.ship_velocity
                     new_enemy.direction_y = math.sin(angle_in_radians)*new_enemy.ship_velocity
 
+                    #if enemy should be ready or not ready to shoot when spawned (usefull for when you want enemys to shoot or stop shooting once they reaced a specific spot)
                     if 'shoot' in json_file_stage['paths'][0][stage_json['path']][0]:
                         new_enemy.ready_to_shoot = json_file_stage['paths'][0][stage_json['path']][0]['shoot']
                     enemys_on_screen.append(new_enemy)
 
+                    #makes the enemy respawn when killed
                     if 'respawn' in json_file_stage['enemy'][enemy_list_turn]:
                         new_enemy.respawn = True
 
+                    #makes  enemy hold an item like a heart or bomb pice
                     if 'item' in json_file_stage['enemy'][enemy_list_turn]:
                         new_enemy.item = json_file_stage['enemy'][enemy_list_turn]['item']
 
@@ -436,6 +484,30 @@ def main_game_loop():
                 else:
                     enemy_list_turn = 0
                     done_spawning_enemys = True   
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                run = False
         
         #end of while loop
+
+        '''#test if objects are still in the game
+        if len(enemys_on_screen) > 0:
+            print(str(len(enemys_on_screen)) + ' enemys')
+        if len(enemybullets_on_screen) > 0:
+            print(str(len(enemybullets_on_screen)) + ' enemy bullets')
+        if len(pointitems_on_screen) > 0:
+            print(str(len(pointitems_on_screen)) + ' point items')
+        if len(poweritems_on_screen) > 0:
+            print(str(len(poweritems_on_screen)) + ' power items')
+        if len(ghostitems_on_screen) > 0:
+            print(str(len(poweritems_on_screen)) + ' ghost items')
+        if len(bombitems_on_screen) > 0:
+            print(str(len(bombitems_on_screen)) + ' bomb items')
+        if len(heartitems_on_screen) > 0:
+            print(str(len(heartitems_on_screen)) + ' heart items')
+        if len(player_var.bullets_on_screen) > 0:
+            print(str(len(player_var.bullets_on_screen)) + ' player bullets')
+        if len(text_on_screen) > 0:
+            print(str(len(text_on_screen)) + ' text')'''
 main_game_loop()

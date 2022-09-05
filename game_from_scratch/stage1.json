@@ -194,25 +194,22 @@
             "time":85, "x":400, "y":-50, "path":"right_then_left", "enemy":"slow_shoot_at_player_strong"
         },
         {
-            "time":86, "x":50, "y":-50, "path":"left_then_right", "enemy":"slow_shoot_at_player_strong"
-        },
-        {
             "time":87, "x":50, "y":-50, "path":"left_then_right", "enemy":"slow_shoot_at_player_strong"
         },
         {
             "time":87, "x":400, "y":-50, "path":"right_then_left", "enemy":"slow_shoot_at_player_strong"
         },
         {
-            "time":88, "x":50, "y":-50, "path":"left_then_right", "enemy":"slow_shoot_at_player_strong"
-        },
-        {
             "time":89, "x":50, "y":-50, "path":"left_then_right", "enemy":"slow_shoot_at_player_strong"
         },
         {
-            "time":90, "x":50, "y":-50, "path":"left_then_right", "enemy":"slow_shoot_at_player_strong"
+            "time":89, "x":50, "y":-50, "path":"right_then_left", "enemy":"slow_shoot_at_player_strong"
         },
         {
-            "time":90, "x":400, "y":-50, "path":"right_then_left", "enemy":"slow_shoot_at_player_strong"
+            "time":91, "x":50, "y":-50, "path":"left_then_right", "enemy":"slow_shoot_at_player_strong"
+        },
+        {
+            "time":91, "x":400, "y":-50, "path":"right_then_left", "enemy":"slow_shoot_at_player_strong"
         },
 
         {

@@ -1,36 +1,10 @@
-from turtle import circle, window_height, window_width
+#from turtle import circle, window_height, window_width dont know what this does but too sceared to delete
+from turtle import color
 from functions import *
 import pygame
 import math
 import random
 import json
-
-#player images
-playerimage = pygame.image.load('assets/player_ship.png')
-playerimage_glow = pygame.image.load('assets/player_ship_glow.png')
-playerbullet = pygame.image.load('assets/player_bullet.png')
-playerbullet_blur = pygame.image.load('assets/player_bullet_blur.png')
-playerarrow = pygame.image.load('assets/player_arrow.png')
-playerarrow_blur = pygame.image.load('assets/player_arrow_blur.png')
-playerhitboximage = pygame.image.load('assets/player_hitbox.png')
-#enemy images
-enemyimage_red = pygame.image.load('assets/enemy_red.png')
-enemyimage_blue = pygame.image.load('assets/enemy_blue.png')
-enemyimage_green = pygame.image.load('assets/enemy_green.png')
-#enemy bullets
-enemybullet_green = pygame.image.load('assets/enemy_bullet_green.png')
-enemybullet_blue = pygame.image.load('assets/enemy_bullet_blue.png')
-enemybullet_red = pygame.image.load('assets/enemy_bullet_red.png')
-enemybullet_orange = pygame.image.load('assets/enemy_bullet_orange.png')
-#item images
-pointitemimage = pygame.image.load('assets/pointitem.png')
-poweritemimage = pygame.image.load('assets/poweritem.png')
-big_poweritemimage = pygame.image.load('assets/big_poweritem.png')
-heart_image = pygame.image.load('assets/heart_object.png')
-bomb_image = pygame.image.load('assets/bomb_object.png')
-ghost_point_image = pygame.image.load('assets/ghost_point.png')
-#animation
-exsplotion_image = [pygame.image.load('assets/exsplotion1.png'), pygame.image.load('assets/exsplotion2.png'), pygame.image.load('assets/exsplotion3.png'), pygame.image.load('assets/exsplotion4.png')]
 
 json_file_boss = json.load(open('boss.json'))
 
@@ -74,10 +48,6 @@ class Shipclass(Classbase):
     def __init__(self, x, y):
         super().__init__(x,y)
 
-    def cooldown_function(self):
-        if self.cooldown_counter > 0:
-            self.cooldown_counter -= 1
-
 class Bulletclass(Classbase):
     def __init__(self, x, y, velocity, direction_x, direction_y, despawn=True):
         super().__init__(x,y)
@@ -118,15 +88,18 @@ class Itemclass(Classbase):
 class Playerclass(Shipclass):
     bullet_static_cooldown = 5
     bomb_static_cooldown = 60
-    player_glow_animation = [playerimage_glow, playerimage]
-    def __init__(self, x=0, y=0):
-        super().__init__(x, y)
+    def __init__(self, player_images):
+        super().__init__(x=0, y=0)
         #base ship
-        self.image = playerimage
+        self.image = player_images[0]
         self.ship_velocity = 5
-        self.hitboximage = playerhitboximage
+        self.hitboximage = player_images[2]
+        self.player_glow_animation = [player_images[1], player_images[0]]
         self.mask = pygame.mask.from_surface(self.hitboximage)
+        self.rect = self.image.get_rect()
         self.score = 0
+        self.hold_score = 0
+        self.score_timer = 0
         self.lives = 3
         self.heart_pice = 0
         self.power = 0
@@ -153,35 +126,35 @@ class Playerclass(Shipclass):
         self.bomb_grow_rate = 15
         self.death_bomb_counter = 0
 
-    def shoot(self):
+    def shoot(self, player_bullet_images):
         if self.bullet_cooldown_counter == 0:
             self.bullet_cooldown_counter = self.bullet_static_cooldown
             bullet_velocity = self.bullet_velocity
 
             #normal bullets
-            center_x = self.getcenter('x')-playerbullet.get_width()/2
-            center_y = self.getcenter('y')-playerbullet.get_height()/2
-            arrow_y = self.y+playerarrow.get_height()
-            arrow_center_x = playerarrow.get_width()/2
+            center_x = self.getcenter('x')#-playerbullet.get_width()/2
+            center_y = self.getcenter('y')#-playerbullet.get_height()/2
+            arrow_y = self.y#+playerarrow.get_height()
+            arrow_center_x = 0#playerarrow.get_width()/2
 
-            bullet = Playerbulletclass(center_x, center_y, 'playerbullet', bullet_velocity, 1)
+            bullet = Playerbulletclass(center_x, center_y, player_bullet_images[0], bullet_velocity, 1)
             self.bullets_on_screen.append(bullet)
 
             #special bullets based on power
             if self.power == 400:
-                self.bullets_on_screen.append(Playerbulletclass(center_x-self.getwidth()-arrow_center_x, arrow_y, 'playerarrow', bullet_velocity, 0.1))
-                self.bullets_on_screen.append(Playerbulletclass(center_x+self.getwidth()+arrow_center_x, arrow_y, 'playerarrow', bullet_velocity, 0.1))
-                self.bullets_on_screen.append(Playerbulletclass(center_x-self.getwidth()+arrow_center_x, arrow_y, 'playerarrow', bullet_velocity, 0.1))
-                self.bullets_on_screen.append(Playerbulletclass(center_x+self.getwidth()-arrow_center_x, arrow_y, 'playerarrow', bullet_velocity, 0.1))
+                self.bullets_on_screen.append(Playerbulletclass(center_x-self.getwidth()-arrow_center_x, arrow_y, player_bullet_images[1], bullet_velocity, 0.1))
+                self.bullets_on_screen.append(Playerbulletclass(center_x+self.getwidth()+arrow_center_x, arrow_y, player_bullet_images[1], bullet_velocity, 0.1))
+                self.bullets_on_screen.append(Playerbulletclass(center_x-self.getwidth()+arrow_center_x, arrow_y, player_bullet_images[1], bullet_velocity, 0.1))
+                self.bullets_on_screen.append(Playerbulletclass(center_x+self.getwidth()-arrow_center_x, arrow_y, player_bullet_images[1], bullet_velocity, 0.1))
             elif self.power >= 300:
-                self.bullets_on_screen.append(Playerbulletclass(center_x-self.getwidth()+arrow_center_x, arrow_y, 'playerarrow', bullet_velocity, 0.1))
-                self.bullets_on_screen.append(Playerbulletclass(center_x+self.getwidth()-arrow_center_x, arrow_y, 'playerarrow', bullet_velocity, 0.1))
-                self.bullets_on_screen.append(Playerbulletclass(center_x, arrow_y, 'playerarrow', bullet_velocity, 0.1))
+                self.bullets_on_screen.append(Playerbulletclass(center_x-self.getwidth()+arrow_center_x, arrow_y, player_bullet_images[1], bullet_velocity, 0.1))
+                self.bullets_on_screen.append(Playerbulletclass(center_x+self.getwidth()-arrow_center_x, arrow_y, player_bullet_images[1], bullet_velocity, 0.1))
+                self.bullets_on_screen.append(Playerbulletclass(center_x, arrow_y, player_bullet_images[1], bullet_velocity, 0.1))
             elif self.power >= 200:
-                self.bullets_on_screen.append(Playerbulletclass(center_x-self.getwidth()+arrow_center_x, arrow_y, 'playerarrow', bullet_velocity, 0.1))
-                self.bullets_on_screen.append(Playerbulletclass(center_x+self.getwidth()-arrow_center_x, arrow_y, 'playerarrow', bullet_velocity, 0.1))
+                self.bullets_on_screen.append(Playerbulletclass(center_x-self.getwidth()+arrow_center_x, arrow_y, player_bullet_images[1], bullet_velocity, 0.1))
+                self.bullets_on_screen.append(Playerbulletclass(center_x+self.getwidth()-arrow_center_x, arrow_y, player_bullet_images[1], bullet_velocity, 0.1))
             elif self.power >= 100:
-                self.bullets_on_screen.append(Playerbulletclass(center_x, arrow_y, 'playerarrow', bullet_velocity, 0.1))
+                self.bullets_on_screen.append(Playerbulletclass(center_x, arrow_y, player_bullet_images[1], bullet_velocity, 0.1))
 
     def draw(self, window, screen_width, screen_height):
         #draw player bullets
@@ -203,12 +176,12 @@ class Playerclass(Shipclass):
                     self.current_animaton_frame = 0
                 else:
                     self.current_animaton_frame += 1
-            self.image = self.player_glow_animation[self.current_animaton_frame]
+            current_image = self.player_glow_animation[self.current_animaton_frame]
         else:
-            self.image = playerimage
-        window.blit(self.image, (self.x, self.y))
+            current_image = self.image
+        window.blit(current_image, (self.x, self.y))
     
-    def update(self, window_width, window_height, power_list):
+    def update(self, text_list):
         #bullet
         if self.bullet_cooldown_counter > 0:
             self.bullet_cooldown_counter -= 1
@@ -220,11 +193,14 @@ class Playerclass(Shipclass):
             self.invulnerable_timer -= 1
             if self.invulnerable_timer == 0:
                 self.can_get_hurt = True
-        #death
-        if self.death_bomb_counter > 0:
-            self.death_bomb_counter -= 1
-            if self.death_bomb_counter == 0:
-                self.die(window_width, window_height, power_list)
+
+        #score
+        if self.score_timer > 0:
+            self.score_timer -= 1
+            if self.score_timer == 0:
+                text_list.append(Textclass(self, self.hold_score))
+                self.score += self.hold_score
+                self.hold_score = 0
 
     def activate_bomb(self):
         if self.bombs > 0 and self.bomb_cooldown_counter == 0:
@@ -240,13 +216,13 @@ class Playerclass(Shipclass):
     
     def move_bomb(self, boss, enemy_list, item_list, other_lists):
         if self.bomb_on:
-            #damedges the boss
+            #damages the boss
             if boss != None and boss.invulnerable_timer == 0:
                 lenght_x = self.getcenter('x') - boss.getcenter('x')
                 lenght_y = self.getcenter('y') - boss.getcenter('y')
                 if math.sqrt(lenght_x*lenght_x + lenght_y*lenght_y) < self.bomb_current_size:
                     boss.health -= 1
-            #damadegs the enemys in enemy list
+            #damages the enemys in enemy list
             for enemy in enemy_list:
                 lenght_x = self.getcenter('x') - enemy.getcenter('x')
                 lenght_y = self.getcenter('y') - enemy.getcenter('y')
@@ -300,7 +276,7 @@ class Playerclass(Shipclass):
                     self.death_bomb_counter = 30
                     enemy_list.remove(enemy)
 
-    def die(self, game_window_width, game_window_height, power_list):
+    def die(self, game_window_width, game_window_height, power_list, images):
         self.lives -= 1
         self.full_power_timer = 0
         if self.bombs < 3:
@@ -312,7 +288,7 @@ class Playerclass(Shipclass):
             else:
                 power = self.power
                 isbig = False
-            power_list.append(Powerclass(self.getcenter('x'),self.getcenter('y'),5,power,isbig))
+            power_list.append(Powerclass(self.getcenter('x'),self.getcenter('y'),images,5,power,isbig))
         self.power = 0
         self.spawn(game_window_width, game_window_height)
         self.invulnerable()
@@ -346,9 +322,6 @@ class Playerclass(Shipclass):
                     self.ship_velocity = 3
                 else:
                     self.ship_velocity = 5
-                #player shoot
-                if pygame.key.get_pressed()[pygame.K_z]:
-                    self.shoot()
 
             #player bomb
             if pygame.key.get_pressed()[pygame.K_x]:
@@ -373,26 +346,34 @@ class Playerclass(Shipclass):
                 self.just_spawned = False
                 self.can_move = True
 
+        self.rect.x = self.x
+        self.rect.y = self.y
+
 class Playerbulletclass(Bulletclass):
-    images = {'playerbullet':(playerbullet, playerbullet_blur), 'playerarrow':(playerarrow, playerarrow_blur)}
+    #images = {'playerbullet':(playerbullet, playerbullet_blur), 'playerarrow':(playerarrow, playerarrow_blur)}
     def __init__(self, x, y, image_choice, velocity, damage):
         super().__init__(x, y, velocity, 0, 0)
-        self.image_string = image_choice
-        self.image = self.images[self.image_string][0]
+        self.image_tuple = image_choice
+        self.image = self.image_tuple[0]
+        self.rect = self.image.get_rect()
+        self.x -= self.image.get_width()/2
+        self.y -= self.image.get_height()/2
         self.damage = damage
-        self.mask = pygame.mask.from_surface(self.image)
         self.dying = False
         self.dying_timer = 10
 
-    def move(self, screen_height, bullet_list):
+    def move(self, bullet_list):
         self.y -= self.velocity
-        if self.y > screen_height:
+        self.rect.x = self.x
+        self.rect.y = self.y
+        if self.dying == False and self.y < 0-self.image.get_height():
             bullet_list.remove(self)
 
     def die(self):
-        self.image = self.images[self.image_string][1]
+        self.image = self.image_tuple[1]
         self.dying = True
         self.velocity = 3
+        self.x = self.x + self.image_tuple[0].get_width()/2 - self.image.get_width()/2
 
     def update(self, bullet_list):
         if self.dying:
@@ -402,24 +383,24 @@ class Playerbulletclass(Bulletclass):
 
 #enemy classes
 class Enemyclass(Shipclass):
-    image_choise = {'red_spaceship':enemyimage_red, 'blue_spaceship':enemyimage_blue, 'green_spaceship':enemyimage_green}
-    def __init__(self, x, y, health, ship_id, image, ship_velocity, cooldown, worth, amount_of_items_to_drop, amount_of_bullets_shoot, ammo, ammo_cooldown, angle_offset, angle_spread, path):
-        super().__init__(x, y)
+    def __init__(self, stage_json, enemy_json, enemy_image):
+        super().__init__(x=stage_json['x'], y=stage_json['y'])
         #base ship
-        self.image = self.image_choise[image]
+        self.image = enemy_image
         self.mask = pygame.mask.from_surface(self.image)
-        self.health = health
-        self.max_health = health
-        self.worth = worth
-        self.amount_of_item_to_drop = amount_of_items_to_drop
+        self.color = enemy_json['image']
+        self.rect = self.image.get_rect()
+        self.health = enemy_json['health']
+        self.max_health = enemy_json['health']
+        self.worth = enemy_json['worth']
+        self.amount_of_item_to_drop = enemy_json['items']
         self.respawn = False
-        self.ship_id = ship_id
         self.item = None
         #movement
-        self.origin_x = x
-        self.origin_y = y
-        self.path = path
-        self.ship_velocity = ship_velocity
+        self.origin_x = stage_json['x']
+        self.origin_y = stage_json['y']
+        self.path = stage_json['path']
+        self.ship_velocity = enemy_json['speed']
         self.goal_x = None
         self.goal_y = None
         self.direction_x = 0
@@ -430,14 +411,18 @@ class Enemyclass(Shipclass):
         self.done_moving = False
         #bullets
         self.bulletvelocity = 3
-        self.cooldown = cooldown
+        self.cooldown = enemy_json['cooldown']
         self.cooldown_counter = 0
-        self.ammo_cooldown = ammo_cooldown
-        self.amount_of_bullets_shoot = amount_of_bullets_shoot
-        self.angle_offset = angle_offset
-        self.angle_spread = angle_spread
+        self.ammo_cooldown = enemy_json['ammo_cooldown']
+        self.amount_of_bullets_shoot = enemy_json['bullets']
+        self.angle_offset = enemy_json['angle_offset']
+        self.angle_spread = enemy_json['angle_spread']
         self.ammo_count = 0
-        self.ammo = ammo
+        self.ammo = enemy_json['ammo']
+
+    def cooldown_function(self):
+        if self.cooldown_counter > 0:
+            self.cooldown_counter -= 1
 
     def move(self, enemy_list, json):
         if self.wait_move > 0:
@@ -456,6 +441,9 @@ class Enemyclass(Shipclass):
                 move_y_done = True
             else:
                 self.y += self.direction_y
+            
+            self.rect.x = self.x
+            self.rect.y = self.y
 
             #when enemy has reached its goal 
             if move_x_done and move_y_done == True:
@@ -487,11 +475,11 @@ class Enemyclass(Shipclass):
 
     def collide_with_player_bullet(self, player_bullet):
         for bullet in player_bullet:
-            if bullet.dying == False and self.collide(bullet):
+            if bullet.dying == False and self.rect.colliderect(bullet.rect):
                 self.health -= bullet.damage
                 bullet.die()
 
-    def shoot(self, target, bullet_list):
+    def shoot(self, target, bullet_list, bullet_color):
         if self.cooldown_counter == 0 and self.ready_to_shoot:
             self.cooldown_counter = self.cooldown
 
@@ -501,7 +489,7 @@ class Enemyclass(Shipclass):
                 angle_in_radians = math.atan2(target.getcenter('y')-self.getcenter('y'), target.getcenter('x')-self.getcenter('x')) + angle_offset
                 direction_x = math.cos(angle_in_radians)*self.bulletvelocity
                 direction_y = math.sin(angle_in_radians)*self.bulletvelocity
-                bullet_list.append(Enemybulletclass(self.x+self.getwidth()/2-enemybullet_red.get_width()/2, self.y+self.getheight()/2-enemybullet_red.get_height()/2, self.bulletvelocity, direction_x, direction_y))
+                bullet_list.append(Enemybulletclass(self.x+self.getwidth()/2, self.y+self.getheight()/2, bullet_color[self.color], self.bulletvelocity, direction_x, direction_y))
 
             if self.ammo != False:
                 self.ammo_count += 1
@@ -509,15 +497,15 @@ class Enemyclass(Shipclass):
                     self.cooldown_counter += self.ammo_cooldown
                     self.ammo_count = 0
 
-    def die(self, enemy_list, particle_list, point_list, power_list, heart_list, bomb_list):
+    def die(self, enemy_list, particle_list, point_list, point_image, power_list, power_images, heart_list, heart_image, bomb_list, bomb_image):
         particle_list.append(Exsplotionclass(self.getcenter('x'),self.getcenter('y'), self.getwidth()+5, 3))
         for i in range(self.amount_of_item_to_drop):
-            point_list.append(Pointclass(random.randrange(int(self.x), int(self.x+self.getwidth())), random.randrange(int(self.y), int(self.y+self.getheight())), int(self.worth/self.amount_of_item_to_drop)))
-            power_list.append(Powerclass(random.randrange(int(self.x), int(self.x+self.getwidth())), random.randrange(int(self.y), int(self.y+self.getheight())), int(self.worth/self.amount_of_item_to_drop)))
-            if self.item == 'heart':
-                heart_list.append(Heartclass(self.getcenter('x')-heart_image.get_width()/2,self.getcenter('y')-heart_image.get_height()/2,100))
-            elif self.item == 'bomb':
-                bomb_list.append(Bombclass(self.getcenter('x')-bomb_image.get_width()/2,self.getcenter('y')-bomb_image.get_height()/2,100))
+            point_list.append(Pointclass(random.randrange(int(self.x), int(self.x+self.getwidth())), random.randrange(int(self.y), int(self.y+self.getheight())), point_image, int(self.worth/self.amount_of_item_to_drop)))
+            power_list.append(Powerclass(random.randrange(int(self.x), int(self.x+self.getwidth())), random.randrange(int(self.y), int(self.y+self.getheight())), power_images, int(self.worth/self.amount_of_item_to_drop)))
+        if self.item == 'heart':
+            heart_list.append(Heartclass(self.getcenter('x'),self.getcenter('y'),100,heart_image))
+        elif self.item == 'bomb':
+            bomb_list.append(Bombclass(self.getcenter('x'),self.getcenter('y'),100,bomb_image))
         if self.respawn == True:
             self.x = self.origin_x
             self.y = self.origin_y
@@ -525,13 +513,15 @@ class Enemyclass(Shipclass):
             self.wait_move = 30
             self.done_moving = False
         else:
-            enemy_list.remove(self)
+            if self in enemy_list:
+                enemy_list.remove(self)
 
 class Enemybulletclass(Bulletclass):
-    image_choise = {'red':(enemybullet_red, 8), 'blue':(enemybullet_blue, 8), 'green':(enemybullet_green, 8), 'orange':(enemybullet_orange, 15)}
-    def __init__(self, x, y, velocity, direction_x, direction_y, color='red', bullet_type=None, despawn=True, origin_x=None, origin_y=None):
+    def __init__(self, x, y, images, velocity, direction_x, direction_y, bullet_type=None, despawn=True, origin_x=None, origin_y=None):
         super().__init__(x, y, velocity, direction_x, direction_y, despawn)
-        self.image, self.hit_distance = self.image_choise[color]
+        self.image, self.hit_distance = images
+        self.x -= self.image.get_width()/2
+        self.y -= self.image.get_height()/2
         self.bullet_type = bullet_type
         self.origin_x = origin_x
         self.origin_y = origin_y
@@ -550,12 +540,15 @@ class Enemybulletclass(Bulletclass):
         if self.despawn_when_out_of_screen and self.outside_play_area(screen_height, screen_width):
             bullet_list.remove(self)
 
-    def turn_into_ghost(self, ghostitem_list):
-        ghostitem_list.append(Ghostpointclass(self.getcenter('x')-ghost_point_image.get_width()/2,self.getcenter('y')-ghost_point_image.get_height()/2))
+    def turn_into_ghost(self, ghostitem_list, ghost_image):
+        ghostitem_list.append(Ghostpointclass(self.getcenter('x'),self.getcenter('y'), ghost_image))
 
 class Bossclass(Shipclass):
-    def __init__(self, midstage_boss):
+    def __init__(self, image, midstage_boss):
         super().__init__(x=0, y=0)
+        self.image = image
+        self.mask = pygame.mask.from_surface(self.image)
+        self.rect = self.image.get_rect()
         self.max_health = 100
         self.health = 100
         self.goal_x = None
@@ -574,8 +567,18 @@ class Bossclass(Shipclass):
 
     def spawn(self, window_width):
         self.x = window_width/2-self.getcenter('x')
+        self.y = 0-self.image.get_height()
         self.goal_x = self.x
         self.goal_y = 200
+
+        if self.midstage_boss:
+            boss_path = 'midstage'
+        else:
+            boss_path = 'boss'
+        self.special_attack = json_file_boss[self.id][0][boss_path][self.attack_count]['special']
+        self.max_health = json_file_boss[self.id][0][boss_path][self.attack_count]['health']
+        self.health = self.max_health
+        self.bulletvelocity = json_file_boss[self.id][0][boss_path][self.attack_count]['bulletvelocity']
 
     def update(self):
         if self.cooldown_counter > 0:
@@ -604,46 +607,50 @@ class Bossclass(Shipclass):
             else:
                 self.y += direction_y
 
+            self.rect.x = self.x
+            self.rect.y = self.y
+
             if reached_goal_y and reached_goal_x:
                 self.stop_moving = True
                 self.ready_to_shoot = True
 
     def collide_with_player_bullets(self, player_bullets):
         for bullet in player_bullets:
-            if bullet.dying == False and self.collide(bullet):
+            if bullet.dying == False and self.rect.colliderect(bullet.rect):
                 if self.invulnerable_timer == 0:
                     self.health -= bullet.damage
                 bullet.die()
 
-    def die(self, enemy_bullets, point_list, power_list, ghost_list, particle_list):
+    def die(self, enemy_bullets, point_list, point_image, power_list, power_images, ghost_list, ghost_image, particle_list):
         if self.midstage_boss == False:
             for bullet in enemy_bullets:
-                bullet.turn_into_ghost(ghost_list)
+                bullet.turn_into_ghost(ghost_list, ghost_image)
             enemy_bullets.clear()
         if self.midstage_boss == False and self.attack_count != self.max_attacks:
+            self.bullet_angle = 0.0
+            self.bullet_offset = 0.0
             self.attack_count += 1
-            self.special_attack = json_file_boss['boss00'][0]['boss'][self.attack_count]['special']
-            self.max_health = json_file_boss['boss00'][0]['boss'][self.attack_count]['health']
+            self.special_attack = json_file_boss[self.id][0]['boss'][self.attack_count]['special']
+            self.max_health = json_file_boss[self.id][0]['boss'][self.attack_count]['health']
             self.health = self.max_health
-            self.bulletvelocity = json_file_boss['boss00'][0]['boss'][self.attack_count]['bulletvelocity']
+            self.bulletvelocity = json_file_boss[self.id][0]['boss'][self.attack_count]['bulletvelocity']
             self.invulnerable_timer = 120
             self.cooldown_counter = 30
         else:
             for i in range(30):
-                point_list.append(Pointclass(random.randrange(int(self.x), int(self.x+self.getwidth())), random.randrange(int(self.y), int(self.y+self.getwidth())), 5))
-            power_list.append(Powerclass(self.getcenter('x')-big_poweritemimage.get_width()/2,self.getcenter('y')-big_poweritemimage.get_height()/2,50,50,True))
+                point_list.append(Pointclass(random.randrange(int(self.x), int(self.x+self.getwidth())), random.randrange(int(self.y), int(self.y+self.getwidth())), point_image, 5))
+            power_list.append(Powerclass(self.getcenter('x'),self.getcenter('y'), power_images, 50,50,True))
             if self.midstage_boss == False and self.attack_count == self.max_attacks:
                 particle_list.append(Exsplotionclass(self.getcenter('x'), self.getcenter('y'), 850, 10))
             return True
 
 #item classes
 class Pointclass(Itemclass):
-    def __init__(self, x, y, worth):
+    def __init__(self, x, y, image, worth):
         super().__init__(x, y, worth)
-        self.image = pointitemimage
-        self.mask = pygame.mask.from_surface(self.image)
+        self.image = image
 
-    def move(self, player, screen_height, item_list, text_list):
+    def move(self, player, screen_height, item_list):
         self.x += self.direction_x
         self.y += self.direction_y
         if self.y > screen_height:
@@ -653,24 +660,23 @@ class Pointclass(Itemclass):
 
         distance_to_player = self.close_to(player)
         if distance_to_player < self.pickup_distance: #player picks up item and item gets deleted
-            player.score += self.worth
-            text_list.append(Textclass(player, self.worth))
+            player.hold_score += self.worth
+            player.score_timer = 5
             item_list.remove(self)
         elif distance_to_player < self.collect_distance:
             self.is_going_to_player = True
                 
 
 class Powerclass(Itemclass):
-    def __init__(self, x, y, worth, power_worth=1, big=False):
+    def __init__(self, x, y, images, worth, power_worth=1, big=False):
         super().__init__(x, y, worth)
         if big == False:
-            self.image = poweritemimage
+            self.image = images[0]
         else:
-            self.image = big_poweritemimage
-        self.mask = pygame.mask.from_surface(self.image)
+            self.image = images[1]
         self.power_worth = power_worth
 
-    def move(self, player, screen_height, item_list, text_list):
+    def move(self, player, screen_height, item_list):
         self.x += self.direction_x
         self.y += self.direction_y
         if self.y > screen_height:
@@ -683,8 +689,8 @@ class Powerclass(Itemclass):
             self.is_going_to_player = True
             if distance_to_player < self.pickup_distance: #player picks up item
                 if player.power == 400:
-                    player.score += self.worth
-                    text_list.append(Textclass(player, self.worth))
+                    player.hold_score += self.worth
+                    player.score_timer = 5
                 elif player.power+self.power_worth > 400:
                     player.power = 400
                 else:
@@ -692,11 +698,11 @@ class Powerclass(Itemclass):
                 item_list.remove(self)
 
 class Heartclass(Itemclass):
-    def __init__(self, x, y, worth):
+    def __init__(self, x, y, worth, image):
         super().__init__(x, y, worth)
-        self.image = heart_image
+        self.image = image
 
-    def move(self, player, screen_height, item_list, text_list):
+    def move(self, player, screen_height, item_list):
         self.x += self.direction_x
         self.y += self.direction_y
         if self.y > screen_height:
@@ -707,8 +713,8 @@ class Heartclass(Itemclass):
         distance_to_player = self.close_to(player)
         if distance_to_player < self.pickup_distance: #player picks up item and item gets removed
             if player.lives == 8:
-                player.score += self.worth
-                text_list.append(Textclass(player, self.worth))
+                player.hold_score += self.worth
+                player.score_timer = 5
             else:
                 if player.heart_pice == 2:
                     player.heart_pice = 0
@@ -721,11 +727,11 @@ class Heartclass(Itemclass):
             self.is_going_to_player = True
 
 class Bombclass(Itemclass):
-    def __init__(self, x, y, worth):
+    def __init__(self, x, y, worth, image):
         super().__init__(x, y, worth)
-        self.image = bomb_image
+        self.image = image
 
-    def move(self, player, screen_height, item_list, text_list):
+    def move(self, player, screen_height, item_list):
         self.x += self.direction_x
         self.y += self.direction_y
         if self.y > screen_height:
@@ -736,8 +742,8 @@ class Bombclass(Itemclass):
         distance_to_player = self.close_to(player)
         if distance_to_player < self.pickup_distance: #item gets picked up and removed
             if player.bombs == 8:
-                player.score += self.worth
-                text_list.append(Textclass(player, self.worth))
+                player.hold_score += self.worth
+                player.score_timer = 5
             else:
                 if player.bomb_pice == 2:
                     player.bomb_pice = 0
@@ -749,10 +755,10 @@ class Bombclass(Itemclass):
             self.is_going_to_player = True
 
 class Ghostpointclass(Itemclass):
-    def __init__(self, x, y):
+    def __init__(self, x, y, image):
         super().__init__(x, y, worth=1)
         self.velocity = 7
-        self.image = ghost_point_image
+        self.image = image
 
     def move(self, player, ghost_list):
         angle_in_radians = math.atan2(player.getcenter('y')-self.getcenter('y'), player.getcenter('x')-self.getcenter('x'))
@@ -771,41 +777,16 @@ class Textclass(Classbase):
         super().__init__(player.getcenter('x')-self.text_label.get_width()/2, player.getcenter('y')-self.text_label.get_height()/2)
         self.life = 60
 
-
     def draw(self, window):
         window.blit(self.text_label, (self.x, self.y))
 
-    def move(self):
-        self.y -= 1
-
     def update(self, text_list):
+        self.y -= 1
         self.life -= 1
         if self.life == 0:
             text_list.remove(self)
 
-class Particleclass(Classbase):
-    frames_until_next_texture = 3
-    def __init__(self, x, y):
-        super().__init__(x, y)
-        self.sprite_sheet = exsplotion_image
-        self.image = self.sprite_sheet[0]
-        self.timer = 0
-        self.current_image_index = 0
-        self.origin_x = x
-        self.origin_y = y
-
-    def update(self, particle_list):
-        self.timer += 1
-        if self.timer == self.frames_until_next_texture:
-            self.timer = 0
-            self.current_image_index += 1
-            if self.current_image_index >= len(self.sprite_sheet):
-                particle_list.remove(self)
-            else:
-                self.image = self.sprite_sheet[self.current_image_index]
-
 class Exsplotionclass(Classbase):
-
     def __init__(self, x, y, max_size, groth):
         super().__init__(x, y)
         self.max_size = max_size
