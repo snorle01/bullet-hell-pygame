@@ -50,10 +50,11 @@ enemyimages = {'red':enemyimage_red, 'blue':enemyimage_blue, 'green':enemyimage_
 #enemy bullets
 enemybullet_green = pygame.image.load('assets/enemy_bullet_green.png').convert_alpha()
 enemybullet_blue = pygame.image.load('assets/enemy_bullet_blue.png').convert_alpha()
+enemybullet_blue_small = pygame.image.load('assets/enemy_bullet_blue_small.png').convert_alpha()
 enemybullet_red = pygame.image.load('assets/enemy_bullet_red.png').convert_alpha()
 enemybullet_orange = pygame.image.load('assets/enemy_bullet_orange.png').convert_alpha()
 enemybullet_purple = pygame.image.load('assets/enemy_bullet_purple.png').convert_alpha()
-enemybullet_colors = {'red':(enemybullet_red, 8), 'blue':(enemybullet_blue, 8), 'green':(enemybullet_green, 8), 'orange':(enemybullet_orange, 15), 'purple':(enemybullet_purple, 8)}
+enemybullet_images = {'red':(enemybullet_red, 8), 'blue':(enemybullet_blue, 8), 'blue_small':(enemybullet_blue_small, 4), 'green':(enemybullet_green, 8), 'orange':(enemybullet_orange, 15), 'purple':(enemybullet_purple, 8)}
 #item images
 pointitemimage = pygame.image.load('assets/pointitem.png').convert_alpha()
 poweritemimage = pygame.image.load('assets/poweritem.png').convert_alpha()
@@ -65,6 +66,7 @@ ghost_point_image = pygame.image.load('assets/ghost_point.png').convert_alpha()
 #bossimages
 bossimage00 = pygame.image.load('assets/boss00.png').convert_alpha()
 bossimage01 = pygame.image.load('assets/boss01.png').convert_alpha()
+bossimage02 = pygame.image.load('assets/boss02.png').convert_alpha()
 
 def main_game_loop():
     run = True
@@ -72,7 +74,7 @@ def main_game_loop():
     fps_counter = 0
 
     stage_time = 0
-    stage_level = 1
+    stage_level = 3
     done_spawning_enemys = False
     stage_cleared = False
     stage_cleared_timer = 0
@@ -107,7 +109,7 @@ def main_game_loop():
 
     #json
     json_file_enemy = json.load(open('enemys.json'))
-    json_file_stage = json.load(open('stage1.json'))
+    json_file_stage = json.load(open('test.json'))
     json_file_boss = json.load(open('boss.json'))
 
     #non changing screen labels
@@ -118,7 +120,6 @@ def main_game_loop():
     bombs_label = side_menu_font.render('Bombs', 1, (255,255,255))
 
     enemy_list_turn = 0
-
     clock = pygame.time.Clock()
     
     while run:
@@ -340,7 +341,7 @@ def main_game_loop():
             #move the enemy
             enemy.move(enemys_on_screen, json_file_stage)
             #enemy shoot
-            enemy.shoot(player_var, enemybullets_on_screen, enemybullet_colors)
+            enemy.shoot(player_var, enemybullets_on_screen)
             #enemy collides with player bullets
             enemy.collide_with_player_bullet(player_var.bullets_on_screen)
             if enemy.health <= 0:
@@ -360,7 +361,7 @@ def main_game_loop():
             #moves the boss
             boss_var.move()
             #boss shoot
-            boss_var.shoot(enemybullet_colors, enemybullets_on_screen, player_var)
+            boss_var.shoot(enemybullet_images, enemybullets_on_screen, player_var)
             #boss update
             boss_var.update()
             #boss collide with player
@@ -425,6 +426,8 @@ def main_game_loop():
                         boss_var = Boss00(bossimage00, json_boss['midstage_boss'])
                     elif json_boss['boss_id'] == 1:
                         boss_var = Boss01(bossimage01, json_boss['midstage_boss'])
+                    elif json_boss['boss_id'] == 2:
+                        boss_var = Boss02(bossimage02, json_boss['midstage_boss'])
                         if boss_var.midstage_boss:
                             type_of_boss = 'midstage'
                         else:
@@ -448,7 +451,7 @@ def main_game_loop():
                     #spawns enemy
                     stage_json = json_file_stage['enemy'][enemy_list_turn]
                     enemy_json = json_file_enemy[stage_json['enemy']][0]
-                    new_enemy = Enemyclass(stage_json, enemy_json, enemyimages[enemy_json['image']])
+                    new_enemy = Enemyclass(stage_json, enemy_json, enemyimages[enemy_json['image']], enemybullet_images[enemy_json['bullet_image']])
 
                     #sets the goal x and goal y for enemy
                     if json_file_stage['paths'][0][stage_json['path']][0]['x'] == 'relative':

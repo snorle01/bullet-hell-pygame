@@ -179,7 +179,7 @@ class Playerclass(Shipclass):
             current_image = self.player_glow_animation[self.current_animaton_frame]
         else:
             current_image = self.image
-        window.blit(current_image, (self.x, self.y))
+        window.blit(current_image, self.rect)
     
     def update(self, text_list):
         #bullet
@@ -383,7 +383,7 @@ class Playerbulletclass(Bulletclass):
 
 #enemy classes
 class Enemyclass(Shipclass):
-    def __init__(self, stage_json, enemy_json, enemy_image):
+    def __init__(self, stage_json, enemy_json, enemy_image, bullet_image):
         super().__init__(x=stage_json['x'], y=stage_json['y'])
         #base ship
         self.image = enemy_image
@@ -410,7 +410,8 @@ class Enemyclass(Shipclass):
         self.ready_to_shoot = True
         self.done_moving = False
         #bullets
-        self.bulletvelocity = 3
+        self.bullet_image = bullet_image
+        self.bulletvelocity = enemy_json['bullet_velocity']
         self.cooldown = enemy_json['cooldown']
         self.cooldown_counter = 0
         self.ammo_cooldown = enemy_json['ammo_cooldown']
@@ -479,7 +480,7 @@ class Enemyclass(Shipclass):
                 self.health -= bullet.damage
                 bullet.die()
 
-    def shoot(self, target, bullet_list, bullet_color):
+    def shoot(self, target, bullet_list):
         if self.cooldown_counter == 0 and self.ready_to_shoot:
             self.cooldown_counter = self.cooldown
 
@@ -489,7 +490,7 @@ class Enemyclass(Shipclass):
                 angle_in_radians = math.atan2(target.getcenter('y')-self.getcenter('y'), target.getcenter('x')-self.getcenter('x')) + angle_offset
                 direction_x = math.cos(angle_in_radians)*self.bulletvelocity
                 direction_y = math.sin(angle_in_radians)*self.bulletvelocity
-                bullet_list.append(Enemybulletclass(self.x+self.getwidth()/2, self.y+self.getheight()/2, bullet_color[self.color], self.bulletvelocity, direction_x, direction_y))
+                bullet_list.append(Enemybulletclass(self.x+self.getwidth()/2, self.y+self.getheight()/2, self.bullet_image, direction_x, direction_y))
 
             if self.ammo != False:
                 self.ammo_count += 1
@@ -517,8 +518,8 @@ class Enemyclass(Shipclass):
                 enemy_list.remove(self)
 
 class Enemybulletclass(Bulletclass):
-    def __init__(self, x, y, images, velocity, direction_x, direction_y, bullet_type=None, despawn=True, origin_x=None, origin_y=None):
-        super().__init__(x, y, velocity, direction_x, direction_y, despawn)
+    def __init__(self, x, y, images, direction_x, direction_y, bullet_type=None, despawn=True, origin_x=None, origin_y=None):
+        super().__init__(x, y, 0, direction_x, direction_y, despawn)
         self.image, self.hit_distance = images
         self.x -= self.image.get_width()/2
         self.y -= self.image.get_height()/2

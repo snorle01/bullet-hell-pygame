@@ -1,39 +1,52 @@
 {
     "slow_shoot_at_player":[{
-        "health":1, "image":"blue", "speed":2, "cooldown":90, "worth":5, "items":1, "bullets":1, "ammo":false, "ammo_cooldown":0, "angle_offset":0, "angle_spread":0
+        "health":1, "image":"blue", "bullet_image":"blue", "speed":2, "cooldown":90, "worth":5, "items":1, "bullets":1, "bullet_velocity":3, "ammo":false, "ammo_cooldown":0, "angle_offset":0, "angle_spread":0
     }],
 
     "shoot_ring":[{
-        "health":20, "image":"red", "speed":3, "cooldown":50, "worth":25, "items":5, "bullets":20, "ammo":false, "ammo_cooldown":0, "angle_offset":0.31415, "angle_spread":0.31415
+        "health":20, "image":"red", "bullet_image":"red", "speed":3, "cooldown":50, "worth":25, "items":5, "bullets":20, "bullet_velocity":3, "ammo":false, "ammo_cooldown":0, "angle_offset":0.31415, "angle_spread":0.31415
     }],
 
     "shoot_ring_easy":[{
-        "health":50, "image":"red", "speed":3, "cooldown":50, "worth":25, "items":5, "bullets":10, "ammo":false, "ammo_cooldown":0, "angle_offset":0.6283, "angle_spread":0.6283
+        "health":50, "image":"red", "bullet_image":"red", "speed":3, "cooldown":50, "worth":25, "items":5, "bullets":10, "bullet_velocity":3, "ammo":false, "ammo_cooldown":0, "angle_offset":0.6283, "angle_spread":0.6283
     }],
 
     "slow_shoot_at_player_strong":[{
-        "health":3, "image":"blue", "speed":2, "cooldown":90, "worth":5, "items":1, "bullets":1, "ammo":false, "ammo_cooldown":0, "angle_offset":0, "angle_spread":0
+        "health":3, "image":"blue", "bullet_image":"blue", "speed":2, "cooldown":90, "worth":5, "items":1, "bullets":1, "bullet_velocity":3, "ammo":false, "ammo_cooldown":0, "angle_offset":0, "angle_spread":0
     }],
 
     "shoot_trident":[{
-        "health":3, "image":"green", "speed":2, "cooldown":90, "worth":5, "items":2, "bullets":3, "ammo":false, "ammo_cooldown":0, "angle_offset":-0.4, "angle_spread":0.2
+        "health":3, "image":"green", "bullet_image":"green", "speed":2, "cooldown":90, "worth":5, "items":2, "bullets":3, "bullet_velocity":3, "ammo":false, "ammo_cooldown":0, "angle_offset":-0.4, "angle_spread":0.2
     }],
 
     "shoot_trident_faster":[{
-        "health":3, "image":"green", "speed":2, "cooldown":50, "worth":5, "items":1, "bullets":3, "ammo":false, "ammo_cooldown":0, "angle_offset":-0.4, "angle_spread":0.2
+        "health":3, "image":"green", "bullet_image":"green", "speed":2, "cooldown":50, "worth":5, "items":1, "bullets":3, "bullet_velocity":3, "ammo":false, "ammo_cooldown":0, "angle_offset":-0.4, "angle_spread":0.2
     }],
 
     "shoot_3row":[{
-        "health":10, "image":"blue", "speed":1, "cooldown":10, "worth":5, "items":1, "bullets":1, "ammo":3, "ammo_cooldown":50, "angle_offset":0, "angle_spread":0
+        "health":10, "image":"blue", "bullet_image":"blue", "speed":1, "cooldown":10, "worth":5, "items":1, "bullets":1, "bullet_velocity":3, "ammo":3, "ammo_cooldown":50, "angle_offset":0, "angle_spread":0
     }],
 
     "shoot_ring_strong":[{
-        "health":50, "image":"red", "speed":4, "cooldown":30, "worth":50, "items":5, "bullets":20, "ammo":false, "ammo_cooldown":0, "angle_offset":0.31415, "angle_spread":0.31415
+        "health":50, "image":"red", "bullet_image":"red", "speed":4, "cooldown":30, "worth":50, "items":5, "bullets":20, "bullet_velocity":3, "ammo":false, "ammo_cooldown":0, "angle_offset":0.31415, "angle_spread":0.31415
     }],
     "shoot_at_player":[{
-        "health":5, "image":"blue", "speed":2, "cooldown":30, "worth":5, "items":1, "bullets":1, "ammo":false, "ammo_cooldown":0, "angle_offset":0, "angle_spread":0
+        "health":5, "image":"blue", "bullet_image":"blue", "speed":2, "cooldown":30, "worth":5, "items":1, "bullets":1, "bullet_velocity":3, "ammo":false, "ammo_cooldown":0, "angle_offset":0, "angle_spread":0
     }],
     "fast_shoot_at_player":[{
-        "health":3, "image":"blue", "speed":10, "cooldown":10, "worth":5, "items":1, "bullets":1, "ammo":false, "ammo_cooldown":0, "angle_offset":0, "angle_spread":0
+        "health":3, "image":"blue", "bullet_image":"blue", "speed":10, "cooldown":10, "worth":5, "items":1, "bullets":1, "bullet_velocity":3, "ammo":false, "ammo_cooldown":0, "angle_offset":0, "angle_spread":0
+    }],
+    "small_ring":[{
+        "health":3, "image":"green", "bullet_image":"green", "speed":3, "cooldown":30, "worth":10, "items":2, "bullets":10, "bullet_velocity":3, "ammo":false, "ammo_cooldown":0, "angle_offset":0.6283, "angle_spread":0.6283
+    }],
+    "bullet_fast":[{
+        "health":5, "image":"blue", "bullet_image":"blue", "speed":2, "cooldown":30, "worth":5, "items":1, "bullets":1, "bullet_velocity":6, "ammo":false, "ammo_cooldown":0, "angle_offset":0, "angle_spread":0
+    }],
+    "tight_ring_bullet_slow":[{
+        "health":5, "image":"blue", "bullet_image":"blue_small", "speed":4, "cooldown":20, "worth":5, "items":1, "bullets":40, "bullet_velocity":1, "ammo":false, "ammo_cooldown":0, "angle_offset":0.157075, "angle_spread":0.157075
+    }],
+
+    "shoot_half_circle_slow_bullets":[{
+        "health":3, "image":"green", "bullet_image":"green", "speed":2, "cooldown":50, "worth":10, "items":2, "bullets":9, "bullet_velocity":1, "ammo":false, "ammo_cooldown":0, "angle_offset":-1.745, "angle_spread":0.349
     }]
 }
