@@ -1,0 +1,53 @@
+{
+    "enemy":[
+        {
+            "time":4, "spawnboss":true, "boss_id":2, "midstage_boss":true
+        },
+        {
+            "time":6, "spawnboss":true, "boss_id":2, "midstage_boss":false
+        },
+        {
+            "time":8, "spawnboss":true, "boss_id":1, "midstage_boss":true
+        },
+        {
+            "time":10, "spawnboss":true, "boss_id":1, "midstage_boss":false
+        },
+        {
+            "time":12, "spawnboss":true, "boss_id":2, "midstage_boss":true
+        },
+        {
+            "time":14, "spawnboss":true, "boss_id":2, "midstage_boss":false
+        }
+    ],
+    "paths":[
+        {
+            "path0":[
+                {
+                    "x":"relative", "y":100
+                },
+                {
+                    "wait":360
+                },
+                {
+                    "x":500, "y":"relative"
+                },
+                {
+                    "die":true
+                }
+            ],
+            "path1":[
+                {
+                    "x":500, "y":"relative"
+                },
+                {
+                    "die":true
+                }
+            ],
+            "path2":[
+                {
+                    "x":"relative", "y":100
+                }
+            ]
+        }
+    ]
+}

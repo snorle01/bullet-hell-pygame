@@ -1,0 +1,11 @@
+# do this
+take stuff from main_file.py and make it class functions
+begin making stage 2
+make animation for player when he dies
+
+# do this when your mostly done
+make it so when there is no enemys on the screen the game releses enemys erlier
+add text saying what stage is started and whats its name is
+add gracing
+make it so players special bullets get focused when pressing shift
+add dialog, menus, sound and music

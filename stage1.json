@@ -1,0 +1,311 @@
+{
+    "enemy":[
+        {
+            "time":1, "x":50, "y":-50, "path":"path0", "enemy":"slow_shoot_at_player" 
+        },
+        {
+            "time":1, "x":150, "y":-50, "path":"path0", "enemy":"slow_shoot_at_player" 
+        },
+        {
+            "time":1, "x":250, "y":-50, "path":"path0", "enemy":"slow_shoot_at_player" 
+        },
+        {
+            "time":1, "x":350, "y":-50, "path":"path0", "enemy":"slow_shoot_at_player" 
+        },
+
+        {
+            "time":6, "x":-50, "y":20, "path":"path1", "enemy":"slow_shoot_at_player_strong" 
+        },
+        {
+            "time":6, "x":-90, "y":80, "path":"path1", "enemy":"slow_shoot_at_player_strong" 
+        },
+        {
+            "time":6, "x":-120, "y":140, "path":"path1", "enemy":"slow_shoot_at_player_strong" 
+        },
+        {
+            "time":7, "x":-50, "y":20, "path":"path1", "enemy":"slow_shoot_at_player_strong" 
+        },
+        {
+            "time":7, "x":-90, "y":80, "path":"path1", "enemy":"slow_shoot_at_player_strong" 
+        },
+        {
+            "time":7, "x":-120, "y":140, "path":"path1", "enemy":"slow_shoot_at_player_strong" 
+        },
+        {
+            "time":8, "x":-50, "y":20, "path":"path1", "enemy":"slow_shoot_at_player_strong" 
+        },
+        {
+            "time":8, "x":-90, "y":80, "path":"path1", "enemy":"slow_shoot_at_player_strong" 
+        },
+        {
+            "time":8, "x":-120, "y":140, "path":"path1", "enemy":"slow_shoot_at_player_strong" 
+        },
+        {
+            "time":9, "x":-50, "y":20, "path":"path1", "enemy":"slow_shoot_at_player_strong" 
+        },
+        {
+            "time":9, "x":-90, "y":80, "path":"path1", "enemy":"slow_shoot_at_player_strong" 
+        },
+        {
+            "time":9, "x":-120, "y":140, "path":"path1", "enemy":"slow_shoot_at_player_strong" 
+        },
+
+        {
+            "time":15, "x":50, "y":-50, "path":"path2", "enemy":"slow_shoot_at_player" 
+        },
+        {
+            "time":15, "x":150, "y":-50, "path":"path2", "enemy":"slow_shoot_at_player" 
+        },
+        {
+            "time":15, "x":250, "y":-50, "path":"path2", "enemy":"slow_shoot_at_player" 
+        },
+        {
+            "time":15, "x":350, "y":-50, "path":"path2", "enemy":"slow_shoot_at_player" 
+        },
+
+        {
+            "time":20, "x":200, "y":-50, "path":"down_middle", "enemy":"shoot_ring", "respawn":true
+        },
+        {
+            "time":22, "x":50, "y":-50, "path":"left_then_right", "enemy":"slow_shoot_at_player_strong"
+        },
+        {
+            "time":22, "x":400, "y":-50, "path":"right_then_left", "enemy":"slow_shoot_at_player_strong"
+        },
+        {
+            "time":23, "x":50, "y":-50, "path":"left_then_right", "enemy":"slow_shoot_at_player_strong"
+        },
+        {
+            "time":23, "x":400, "y":-50, "path":"right_then_left", "enemy":"slow_shoot_at_player_strong"
+        },
+        {
+            "time":24, "x":50, "y":-50, "path":"left_then_right", "enemy":"slow_shoot_at_player_strong"
+        },
+        {
+            "time":24, "x":400, "y":-50, "path":"right_then_left", "enemy":"slow_shoot_at_player_strong"
+        },
+
+        {
+            "time":30, "respawn_turn_off":false
+        },
+
+        {
+            "time":32, "x":-50, "y":100, "path":"path1", "enemy":"slow_shoot_at_player_strong" 
+        },
+        {
+            "time":33, "x":-50, "y":100, "path":"path1", "enemy":"slow_shoot_at_player_strong" 
+        },
+        {
+            "time":34, "x":-50, "y":100, "path":"path1", "enemy":"slow_shoot_at_player_strong" 
+        },
+        {
+            "time":35, "x":-50, "y":100, "path":"path1", "enemy":"slow_shoot_at_player_strong" 
+        },
+        {
+            "time":36, "x":-50, "y":100, "path":"path1", "enemy":"slow_shoot_at_player_strong" 
+        },
+        {
+            "time":37, "x":-50, "y":100, "path":"path1", "enemy":"slow_shoot_at_player_strong" 
+        },
+
+        {
+            "time":45, "clear":true
+        },
+
+        {
+            "time":45, "spawnboss":true, "boss_id":0, "midstage_boss":true
+        },
+
+        {
+            "time":50, "x":350, "y":-50, "path":"down_wait", "enemy":"shoot_trident"
+        },
+        {
+            "time":51, "x":150, "y":-50, "path":"down_wait", "enemy":"shoot_trident"
+        },
+        {
+            "time":52, "x":200, "y":-50, "path":"down_wait", "enemy":"shoot_trident"
+        },
+        {
+            "time":53, "x":250, "y":-50, "path":"down_wait", "enemy":"shoot_trident"
+        },
+        {
+            "time":54, "x":400, "y":-50, "path":"down_wait", "enemy":"shoot_trident"
+        },
+        {
+            "time":55, "x":350, "y":-50, "path":"down_wait", "enemy":"shoot_trident_faster"
+        },
+        {
+            "time":55, "x":150, "y":-50, "path":"down_wait", "enemy":"shoot_trident_faster"
+        },
+        {
+            "time":56, "x":200, "y":-50, "path":"down_wait", "enemy":"shoot_trident_faster"
+        },
+        {
+            "time":56, "x":325, "y":-50, "path":"down_wait", "enemy":"shoot_trident_faster"
+        },
+        {
+            "time":57, "x":380, "y":-50, "path":"down_wait", "enemy":"shoot_trident_faster"
+        },
+        {
+            "time":57, "x":240, "y":-50, "path":"down_wait", "enemy":"shoot_trident_faster"
+        },
+        {
+            "time":58, "x":50, "y":-50, "path":"down_wait", "enemy":"shoot_trident_faster"
+        },
+        {
+            "time":58, "x":310, "y":-50, "path":"down_wait", "enemy":"shoot_trident_faster"
+        },
+        {
+            "time":59, "x":190, "y":-50, "path":"down_wait", "enemy":"shoot_trident_faster"
+        },
+        {
+            "time":59, "x":270, "y":-50, "path":"down_wait", "enemy":"shoot_trident_faster"
+        },
+        {
+            "time":60, "x":400, "y":-50, "path":"down_wait", "enemy":"shoot_trident_faster"
+        },
+        {
+            "time":60, "x":60, "y":-50, "path":"down_wait", "enemy":"shoot_trident_faster"
+        },
+
+        {
+            "time":70, "x":-30, "y":150, "path":"path1", "enemy":"shoot_3row" 
+        },
+        {
+            "time":71, "x":-80, "y":200, "path":"path1", "enemy":"shoot_3row" 
+        },
+        {
+            "time":72, "x":-50, "y":120, "path":"path1", "enemy":"shoot_3row" 
+        },
+        {
+            "time":73, "x":-50, "y":100, "path":"path1", "enemy":"shoot_3row" 
+        },
+        {
+            "time":74, "x":-70, "y":80, "path":"path1", "enemy":"shoot_3row" 
+        },
+        {
+            "time":75, "x":-50, "y":120, "path":"path1", "enemy":"shoot_3row" 
+        },
+
+        {
+            "time":85, "x":50, "y":-50, "path":"left_then_right", "enemy":"slow_shoot_at_player_strong"
+        },
+        {
+            "time":85, "x":400, "y":-50, "path":"right_then_left", "enemy":"slow_shoot_at_player_strong"
+        },
+        {
+            "time":87, "x":50, "y":-50, "path":"left_then_right", "enemy":"slow_shoot_at_player_strong"
+        },
+        {
+            "time":87, "x":400, "y":-50, "path":"right_then_left", "enemy":"slow_shoot_at_player_strong"
+        },
+        {
+            "time":89, "x":50, "y":-50, "path":"left_then_right", "enemy":"slow_shoot_at_player_strong"
+        },
+        {
+            "time":89, "x":50, "y":-50, "path":"right_then_left", "enemy":"slow_shoot_at_player_strong"
+        },
+        {
+            "time":91, "x":50, "y":-50, "path":"left_then_right", "enemy":"slow_shoot_at_player_strong"
+        },
+        {
+            "time":91, "x":400, "y":-50, "path":"right_then_left", "enemy":"slow_shoot_at_player_strong"
+        },
+
+        {
+            "time":100, "x":200, "y":-50, "path":"path2", "enemy":"shoot_ring_easy", "item":"heart"
+        },
+        {
+            "time":100, "x":85, "y":-50, "path":"path2", "enemy":"shoot_ring_easy", "item":"bomb"
+        },
+        {
+            "time":100, "x":315, "y":-50, "path":"path2", "enemy":"shoot_ring_easy", "item":"bomb"
+        },
+
+        {
+            "time":125, "clear":true
+        },
+        {
+            "time":125, "spawnboss":true, "boss_id":0, "midstage_boss":false
+        },
+        {
+            "time":130, "stage_clear":true
+        }
+    ],
+
+    "paths":[
+        {
+            "path0":[
+                {
+                    "x":"relative", "y":100
+                },
+                {
+                    "wait":360
+                },
+                {
+                    "x":500, "y":"relative"
+                },
+                {
+                    "die":true
+                }
+            ],
+            "path1":[
+                {
+                    "x":500, "y":"relative"
+                },
+                {
+                    "die":true
+                }
+            ],
+            "path2":[
+                {
+                    "x":"relative", "y":100
+                }
+            ],
+            "left_then_right":[
+                {
+                    "x":50, "y":200
+                },
+                {
+                    "x":500, "y":300
+                },
+                {
+                    "die":true
+                }
+            ],
+            "right_then_left":[
+                {
+                    "x":400, "y":200
+                },
+                {
+                    "x":-50, "y":300
+                },
+                {
+                    "die":true
+                }
+            ],
+            "down_middle":[
+                {
+                    "x":200, "y":-50
+                },
+                {
+                    "x":"relative", "y":200
+                }
+            ],
+            "down_wait":[
+                {
+                    "x":"relative", "y":100
+                },
+                {
+                    "wait":360
+                },
+                {
+                    "x":"relative", "y":700
+                },
+                {
+                    "die":true
+                }
+            ]
+        }
+    ]
+}
