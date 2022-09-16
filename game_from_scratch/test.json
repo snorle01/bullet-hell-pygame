@@ -1,7 +1,7 @@
 {
     "enemy":[
         {
-            "time":4, "spawnboss":true, "boss_id":2, "midstage_boss":true
+            "time":4, "spawnboss":true, "boss_id":2, "midstage_boss":false
         },
         {
             "time":6, "spawnboss":true, "boss_id":2, "midstage_boss":false

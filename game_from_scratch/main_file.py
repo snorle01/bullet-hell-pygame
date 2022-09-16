@@ -8,7 +8,7 @@ pygame.init()
 
 #size of the entire window
 height_of_window, width_of_window = 700, 700
-#size of the game screen
+#size of the game screen  
 game_screen_height, game_screen_width = 700, 467
 #size of the side menu
 side_menu_height, side_menu_width = 700, 233

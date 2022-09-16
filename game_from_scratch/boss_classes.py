@@ -1,7 +1,5 @@
 from classes import Bossclass, Enemybulletclass
-import pygame
-import random
-import math
+import pygame, random, math
 
 class Boss00(Bossclass):
     id = 'boss00'
@@ -222,13 +220,15 @@ class Boss02(Bossclass):
         super().__init__(image, midstage_boss)
         #ship
         self.max_attacks = 5
-        self.attack_count = 0
+        self.attack_count = 3
         #bullet
         self.ammo_count = 0
         self.bullet_angle = 0.0
         self.bullet_offset = 0.0
         self.shoot_dir = 'top right'
         self.shoot_right = True
+        self.step = 0
+        self.current_angle = 0
 
     def shoot(self, bullet_images, bullet_list, target):
         if self.ready_to_shoot:
@@ -311,26 +311,18 @@ class Boss02(Bossclass):
 
                 elif self.attack_count == 3:
                     if self.cooldown_counter == 0:
-                        self.cooldown_counter = 60
-                        self.bullet_angle = 0
-                        for i in range(30):
-                            bullet_x = self.getcenter('x')+(math.cos(self.bullet_angle)*150)
-                            bullet_y = self.getcenter('y')+(math.sin(self.bullet_angle)*150)
-
-                            angle_in_radians = math.atan2(target.getcenter('y')-bullet_y, target.getcenter('x')-bullet_x)
-                            direction_x = math.cos(angle_in_radians)*self.bulletvelocity
-                            direction_y = math.sin(angle_in_radians)*self.bulletvelocity
-                            bullet_list.append(Enemybulletclass(bullet_x, bullet_y, bullet_images['red'], direction_x, direction_y))
-                            self.bullet_angle += 0.209
-
-                    if self.second_cooldown_counter == 0:
-                        self.second_cooldown_counter = 30
-                        self.bullet_angle = random.uniform(0.0, 0.209)
-                        for i in range(30):
-                            direction_x = math.cos(self.bullet_angle)*self.bulletvelocity
-                            direction_y = math.sin(self.bullet_angle)*self.bulletvelocity
-                            bullet_list.append(Enemybulletclass(self.getcenter('x'), self.getcenter('y'), bullet_images['blue'], direction_x, direction_y))
-                            self.bullet_angle += 0.209
+                        self.cooldown_counter = 1
+                        if self.step == 0:
+                            self.current_angle = angle_in_radians = math.atan2(target.y-self.getcenter('y'), target.x-self.getcenter('x'))
+                        self.step += 5
+                        spawn_x = math.cos(self.current_angle)*self.step
+                        spawn_y = math.sin(self.current_angle)*self.step
+                        random_angle = random.uniform(0.0, 6.283)
+                        direction_x = math.cos(random_angle)*self.bulletvelocity
+                        direction_y = math.sin(random_angle)*self.bulletvelocity
+                        bullet_list.append(Enemybulletclass(self.getcenter('x')+spawn_x, self.getcenter('y')+spawn_y, bullet_images['red'], direction_x, direction_y))
+                        if self.step > 800:
+                            self.step = 0
 
                 elif self.attack_count == 4 and self.cooldown_counter == 0:
                     self.cooldown_counter = 10
@@ -492,3 +484,22 @@ for i in range(30):
     bullet_list.append(Enemybulletclass(self.getcenter('x'), self.getcenter('y'), bullet_images['blue'], direction_x, direction_y))
     self.bullet_angle += 0.209
 self.bullet_offset += 0.1'''
+
+'''self.cooldown_counter = 60
+    self.bullet_angle = 0
+    for i in range(30):
+        bullet_x = self.getcenter('x')+(math.cos(self.bullet_angle)*150)
+        bullet_y = self.getcenter('y')+(math.sin(self.bullet_angle)*
+        angle_in_radians = math.atan2(target.getcenter('y')-bullet_y, target.getcenter('x')-bullet_x)
+        direction_x = math.cos(angle_in_radians)*self.bulletvelocity
+        direction_y = math.sin(angle_in_radians)*self.bulletvelocity
+        bullet_list.append(Enemybulletclass(bullet_x, bullet_y, bullet_images['red'], direction_x, direction_y))
+        self.bullet_angle += 0
+if self.second_cooldown_counter == 0:
+    self.second_cooldown_counter = 30
+    self.bullet_angle = random.uniform(0.0, 0.209)
+    for i in range(30):
+        direction_x = math.cos(self.bullet_angle)*self.bulletvelocity
+        direction_y = math.sin(self.bullet_angle)*self.bulletvelocity
+        bullet_list.append(Enemybulletclass(self.getcenter('x'), self.getcenter('y'), bullet_images['blue'], direction_x, direction_y))
+        self.bullet_angle += 0.209'''
