@@ -14,7 +14,7 @@ game_screen_height, game_screen_width = 700, 467
 side_menu_height, side_menu_width = 700, 233
 
 game_window = pygame.display.set_mode((height_of_window, width_of_window))
-pygame.display.set_caption('game test')
+pygame.display.set_caption('bullet hell')
 
 #Load images
 #background image
@@ -74,7 +74,7 @@ def main_game_loop():
     fps_counter = 0
 
     stage_time = 0
-    stage_level = 3
+    stage_level = 1
     done_spawning_enemys = False
     stage_cleared = False
     stage_cleared_timer = 0
@@ -109,7 +109,7 @@ def main_game_loop():
 
     #json
     json_file_enemy = json.load(open('enemys.json'))
-    json_file_stage = json.load(open('test.json'))
+    json_file_stage = json.load(open('stage1.json'))
     json_file_boss = json.load(open('boss.json'))
 
     #non changing screen labels
